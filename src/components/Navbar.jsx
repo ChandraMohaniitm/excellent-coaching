@@ -17,20 +17,31 @@ const Navbar = () => {
 
   const handleScroll = (id) => {
     setOpen(false);
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "smooth",
-    });
+
+    // delay needed for mobile menu close animation
+    setTimeout(() => {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }, 200);
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-gray-100 shadow-md overflow-x-hidden">
+    <header className="sticky top-0 z-50 bg-gray-100 shadow-md">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
 
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <div
+          className="flex items-center gap-3 cursor-pointer"
+          onClick={() => handleScroll("home")}
+        >
           <img
             src={logo}
-            alt="logo"
+            alt="Excellent Coaching"
             className="w-12 h-11 rounded-full"
           />
           <span className="text-2xl font-bold text-gray-700">
@@ -68,9 +79,9 @@ const Navbar = () => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-gray-100 px-6 overflow-hidden"
+            className="md:hidden bg-gray-100 overflow-hidden"
           >
-            <ul className="flex flex-col gap-4 py-4 text-lg font-medium">
+            <ul className="flex flex-col gap-5 px-6 py-6 text-lg font-medium text-gray-700">
               {menuItems.map((item) => (
                 <li
                   key={item.id}
