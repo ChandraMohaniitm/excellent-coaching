@@ -15,24 +15,13 @@ const settings = {
   speed: 600,
   autoplay: true,
   autoplaySpeed: 2500,
-  slidesToShow: 3, // 👈 DEFAULT (Laptop/Desktop)
+
+  slidesToShow: 1,   // ✅ single image everywhere
   slidesToScroll: 1,
 
-  responsive: [
-    {
-      breakpoint: 1024, // tablets
-      settings: {
-        slidesToShow: 2,
-      },
-    },
-    {
-      breakpoint: 768, // mobile
-      settings: {
-        slidesToShow: 1,
-      },
-    },
-  ],
+  // optional: you can even remove responsive completely
 };
+
 
 
 

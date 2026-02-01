@@ -33,8 +33,13 @@ const Chatwidget = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed bottom-10 right-9  md:bottom-5 md:right-5 z-50 w-[350px] h-[420px] bg-white rounded-xl shadow-2xl flex flex-col overflow-hidden">
-
+    <div
+      className="
+        fixed z-50 bg-white shadow-2xl flex flex-col overflow-hidden
+        bottom-0 right-0 w-full h-[80vh] rounded-t-2xl
+        md:bottom-5 md:right-5 md:w-[350px] md:h-[420px] md:rounded-xl
+      "
+    >
       {/* Header */}
       <div className="flex justify-between items-center bg-blue-600 px-3 py-2">
         <div className="flex items-center gap-2">
@@ -57,11 +62,8 @@ const Chatwidget = ({ onClose }) => {
         className="flex-1 p-3 space-y-3 overflow-y-auto bg-gray-50"
       >
         {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className="flex justify-start"
-          >
-            <div className="max-w-[85%] bg-white border rounded-xl px-3 py-2 text-sm prose prose-sm">
+          <div key={msg.id} className="flex justify-start">
+            <div className="max-w-[90%] bg-white border rounded-xl px-3 py-2 text-sm prose prose-sm">
               <ReactMarkdown>{msg.text}</ReactMarkdown>
             </div>
           </div>

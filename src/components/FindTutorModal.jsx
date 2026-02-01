@@ -1,16 +1,8 @@
-import {
-  Button,
-  Label,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  TextInput,
-  Select,
-} from "flowbite-react";
 import { useState } from "react";
 
 const FindTutorModal = ({ open, onClose }) => {
   const WEB3_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
+
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -31,25 +23,26 @@ const FindTutorModal = ({ open, onClose }) => {
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: WEB3_KEY, // Web3Forms access key
+          access_key: WEB3_KEY,
           subject: "New Tutor Request",
           sender_name: formData.name,
           sender_email: formData.contact,
-          message: `Name: ${formData.name}\nContact: ${formData.contact}\nClass: ${formData.studentClass}\nAddress: ${formData.address}`,
+          message: `Name: ${formData.name}
+Contact: ${formData.contact}
+Class: ${formData.studentClass}
+Address: ${formData.address}`,
           data: formData,
         }),
       });
 
       const data = await res.json();
-
-      if (!res.ok || !data.success) throw new Error(data.message || "Submission failed");
+      if (!res.ok || !data.success)
+        throw new Error(data.message || "Submission failed");
 
       alert("Tutor request submitted successfully ✅");
-      setFormData({ name: "", contact: "", studentClass: "", address: "" }); // reset form
+      setFormData({ name: "", contact: "", studentClass: "", address: "" });
       onClose();
     } catch (err) {
       alert(`Submission failed ❌: ${err.message}`);
@@ -59,47 +52,70 @@ const FindTutorModal = ({ open, onClose }) => {
     }
   };
 
-  return (
-    <Modal show={open} size="md" popup onClose={onClose} className=" mt-30 md:mt-15 mr-4 flex items-center justify-center">
-      <ModalHeader>Find a Tutor</ModalHeader>
+  if (!open) return null;
 
-      <ModalBody>
-        <form onSubmit={handleSubmit} className="space-y-4">
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+      {/* Modal box */}
+      <div className="w-full max-w-md rounded-xl bg-white shadow-xl animate-fadeIn">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b px-6 py-4">
+          <h2 className="text-lg font-semibold text-gray-800">
+            Find a Tutor
+          </h2>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 text-xl"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Body */}
+        <form onSubmit={handleSubmit} className="space-y-4 px-6 py-5">
           {/* Name */}
           <div>
-            <Label htmlFor="name" value="Your Name" />
-            <TextInput
-              id="name"
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Your Name
+            </label>
+            <input
+              type="text"
               name="name"
-              placeholder="Enter your name"
               required
               value={formData.name}
               onChange={handleChange}
+              placeholder="Enter your name"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
 
           {/* Contact */}
           <div>
-            <Label htmlFor="contact" value="Contact Number" />
-            <TextInput
-              id="contact"
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Contact Number / Email
+            </label>
+            <input
+              type="text"
               name="contact"
-              placeholder="Phone number or Email"
               required
               value={formData.contact}
               onChange={handleChange}
+              placeholder="Phone number or email"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
 
-          {/* Dropdown for Class */}
+          {/* Class */}
           <div>
-            <Label htmlFor="studentClass" value="Student Class" />
-            <Select
-              id="studentClass"
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Student Class
+            </label>
+            <select
               name="studentClass"
               required
               value={formData.studentClass}
               onChange={handleChange}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm bg-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             >
               <option value="">Select class</option>
               <option value="Class 1–5">Class 1–5</option>
@@ -109,35 +125,46 @@ const FindTutorModal = ({ open, onClose }) => {
               <option value="Class 11">Class 11</option>
               <option value="Class 12">Class 12</option>
               <option value="Competitive Exams">Competitive Exams</option>
-            </Select>
+            </select>
           </div>
 
           {/* Address */}
           <div>
-            <Label htmlFor="address" value="Address" />
-            <TextInput
-              id="address"
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Address
+            </label>
+            <input
+              type="text"
               name="address"
-              placeholder="Your address"
               required
               value={formData.address}
               onChange={handleChange}
+              placeholder="Your address"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
 
           {/* Buttons */}
-          <div className="flex gap-3 pt-2">
-            <Button color="gray" type="submit" disabled={loading} className="w-full">
+          <div className="flex gap-3 pt-3">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60"
+            >
               {loading ? "Submitting..." : "Submit"}
-            </Button>
+            </button>
 
-            <Button color="red" type="button" onClick={onClose} className="w-full">
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-full rounded-md border border-gray-300 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            >
               Cancel
-            </Button>
+            </button>
           </div>
         </form>
-      </ModalBody>
-    </Modal>
+      </div>
+    </div>
   );
 };
 
