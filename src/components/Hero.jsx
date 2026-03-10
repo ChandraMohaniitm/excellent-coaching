@@ -84,7 +84,7 @@ const Hero = () => {
               initial={{ scaleX: 0, originX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ 
-                delay: 3, 
+                delay: 4, 
                 duration: 1.2, 
                 ease: [0.65, 0, 0.35, 1] 
               }}
@@ -103,7 +103,7 @@ const Hero = () => {
           </div>
 
           {/* ACTION BUTTONS */}
-          <div className="flex flex-wrap gap-5 mt-10">
+          <div className="flex gap-2 mt-10">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
