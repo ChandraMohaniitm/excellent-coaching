@@ -8,100 +8,112 @@ const Chatwidget = ({ onClose }) => {
     {
       id: 1,
       sender: "ai",
-      text: "👋 Hi! Welcome to **Excellent Coaching**.\n\nHow can I help you today?",
+      text: "👋 Hi! Welcome to **Excellent Coaching**.\n\nI'm your virtual assistant. How can I help you excel today?",
     },
   ]);
-
+  const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef(null);
 
+  // Auto-scroll to bottom
   useEffect(() => {
-    scrollRef.current?.scrollTo({
-      top: scrollRef.current.scrollHeight,
-      behavior: "smooth",
-    });
-  }, [messages]);
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages, isTyping]);
 
-  const addMessage = (text) => {
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        sender: "ai",
-        text,
-      },
-    ]);
+  const handleOptionClick = (optionText, aiResponse) => {
+    if (isTyping) return; // Prevent spamming while "typing"
+
+    // 1. Add User's selection to chat
+    const userMsg = { id: Date.now(), sender: "user", text: optionText };
+    setMessages((prev) => [...prev, userMsg]);
+
+    // 2. Trigger AI typing state
+    setIsTyping(true);
+
+    // 3. Delay AI response for realism
+    setTimeout(() => {
+      const aiMsg = { id: Date.now() + 1, sender: "ai", text: aiResponse };
+      setMessages((prev) => [...prev, aiMsg]);
+      setIsTyping(false);
+    }, 800);
   };
 
   return (
-    <div
-      className="
-        fixed z-50 bg-white shadow-2xl flex flex-col overflow-hidden
-        bottom-0 right-0 w-full h-[80vh] rounded-t-2xl
-        md:bottom-5 md:right-5 md:w-[350px] md:h-[420px] md:rounded-xl
-      "
-    >
+    <div className="fixed z-50 bg-white shadow-2xl flex flex-col overflow-hidden bottom-0 right-0 w-full h-[80vh] rounded-t-2xl md:bottom-5 md:right-5 md:w-[350px] md:h-[500px] md:rounded-xl border border-gray-200">
+      
       {/* Header */}
-      <div className="flex justify-between items-center bg-blue-600 px-3 py-2">
-        <div className="flex items-center gap-2">
-          <img src={logo} className="w-8 h-8 rounded-full" alt="logo" />
+      <div className="flex justify-between items-center bg-blue-600 px-4 py-3 shadow-md">
+        <div className="flex items-center gap-3">
+          <div className="relative">
+            <img src={logo} className="w-10 h-10 rounded-full border-2 border-white shadow-sm" alt="logo" />
+            <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></span>
+          </div>
           <div>
-            <p className="text-white font-medium text-sm">Excellent Coaching</p>
-            <p className="text-green-300 text-[10px]">online</p>
+            <p className="text-white font-bold text-sm tracking-wide">Excellent Coaching</p>
+            <p className="text-blue-100 text-[11px] font-medium">Always Active</p>
           </div>
         </div>
-
-        <RxCross2
-          onClick={onClose}
-          className="text-white cursor-pointer hover:scale-90 transition"
-        />
+        <RxCross2 onClick={onClose} className="text-white text-xl cursor-pointer hover:rotate-90 transition-all duration-300" />
       </div>
 
       {/* Chat Body */}
-      <div
-        ref={scrollRef}
-        className="flex-1 p-3 space-y-3 overflow-y-auto bg-gray-50"
-      >
+      <div ref={scrollRef} className="flex-1 p-4 space-y-4 overflow-y-auto bg-gray-50 scroll-smooth">
         {messages.map((msg) => (
-          <div key={msg.id} className="flex justify-start">
-            <div className="max-w-[90%] bg-white border rounded-xl px-3 py-2 text-sm prose prose-sm">
+          <div key={msg.id} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
+            <div className={`max-w-[85%] px-4 py-2 rounded-2xl text-sm shadow-sm ${
+              msg.sender === "user" 
+                ? "bg-blue-600 text-white rounded-tr-none" 
+                : "bg-white border border-gray-200 text-gray-800 rounded-tl-none prose prose-sm"
+            }`}>
               <ReactMarkdown>{msg.text}</ReactMarkdown>
             </div>
           </div>
         ))}
 
-        {/* OPTIONS (Always Visible) */}
-        <div className="space-y-2 mt-4">
+        {isTyping && (
+          <div className="flex justify-start">
+            <div className="bg-gray-200 px-4 py-2 rounded-2xl rounded-tl-none">
+              <span className="flex gap-1">
+                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"></span>
+                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Floating Options Container */}
+        <div className="space-y-2 pt-2">
+          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest px-1">Quick Actions</p>
           <button
-            onClick={() =>
-              addMessage(
-                `### 👨‍🏫 Who We Are\n\nExcellent Coaching helps students achieve academic and career success through expert guidance and personalized learning.\n\n_Lorem ipsum dolor sit amet, consectetur adipiscing elit._`
-              )
-            }
-            className="w-full border rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition"
+            onClick={() => handleOptionClick(
+              "Who we are", 
+              "### 👨‍🏫 About Us\n\nWe provide **premium 1-on-1 coaching** for students of all grades. Our mission is to bridge the gap between classroom learning and real-world mastery through expert tutors."
+            )}
+            className="w-full text-left bg-white border border-blue-100 rounded-lg px-3 py-2 text-xs font-medium text-blue-700 hover:bg-blue-600 hover:text-white transition-all shadow-sm"
           >
             Who we are
           </button>
 
           <button
-            onClick={() =>
-              addMessage(
-                `### ⚙️ How It Works\n\n1️⃣ **Contact Us**\n\n2️⃣ **Book a Free Demo Class**\n\n3️⃣ **Start learning with the tutor that fits you best**`
-              )
-            }
-            className="w-full border rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition"
+            onClick={() => handleOptionClick(
+              "How it works", 
+              "### ⚙️ The Process\n\n1. **Personal Assessment**: We identify your learning style.\n2. **Tutor Matching**: Get paired with a subject expert.\n3. **Flexible Schedule**: Learn online at your own pace."
+            )}
+            className="w-full text-left bg-white border border-blue-100 rounded-lg px-3 py-2 text-xs font-medium text-blue-700 hover:bg-blue-600 hover:text-white transition-all shadow-sm"
           >
             How it works
           </button>
 
           <button
-            onClick={() =>
-              addMessage(
-                `### 📞 Contact Us\n\n👉 Fill the form on our website\n👉 Use **Find Tutor** option\n👉 Or reach us via the contact page\n\nWe’ll connect with you shortly 😊`
-              )
-            }
-            className="w-full border rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition"
+            onClick={() => handleOptionClick(
+              "Book a Demo", 
+              "### 🚀 Get Started\n\nGreat choice! Please drop your contact number or [click here](/contact) to book your **Free 30-minute Demo Session**."
+            )}
+            className="w-full text-left bg-white border border-blue-100 rounded-lg px-3 py-2 text-xs font-medium text-blue-700 hover:bg-blue-600 hover:text-white transition-all shadow-sm"
           >
-            Contact us
+            Book a Demo Class
           </button>
         </div>
       </div>

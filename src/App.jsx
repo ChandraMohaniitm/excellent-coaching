@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Achievement from "./pages/Achievements";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
+import Faq from "./pages/Faq";
 
 const App = () => {
   const [open, setOpen] = useState(false);
@@ -24,6 +25,7 @@ const App = () => {
 
       <About />
       <Achievement />
+      <Faq />
       <Contact />
       <Footer />
     </>
