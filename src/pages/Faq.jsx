@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Faq = () => {
-  // Track which accordion is open by its index. Null means all are closed.
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -11,66 +11,81 @@ const Faq = () => {
   const faqData = [
     {
       question: "How can I reset my password?",
-      answer: "To reset your password, click on the 'Forgot Password' link on the login page. We will send a secure link to your registered email address to create a new one."
+      answer: "Click 'Forgot Password' on the login page. We'll send a secure link to your registered email to reset it."
     },
     {
       question: "How do I update my billing information?",
-      answer: "Navigate to your Account Settings and select the 'Billing' tab. From there, you can update your credit card details, billing address, and view past invoices."
+      answer: "Go to Account Settings → Billing. Update your credit card details, billing address, or view past invoices."
     },
     {
       question: "How can I contact customer support?",
-      answer: "You can reach our support team via the live chat icon in the bottom right corner, or by emailing support@example.com. We typically respond within 24 hours."
+      answer: "Reach us via live chat in the bottom-right corner or email support@example.com. Response typically within 24 hours."
     },
     {
       question: "How do I delete my account?",
-      answer: "Account deletion can be requested through the 'Privacy' section of your profile. Please note that this action is permanent and all data will be removed."
+      answer: "Request account deletion in the 'Privacy' section of your profile. This action is permanent and all data will be removed."
     }
   ];
 
   return (
     <section className="py-24 bg-gray-50">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12">
-          <h2 className="text-4xl text-center font-bold text-gray-900">
+      <div className="max-w-3xl mx-auto px-6">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
             Frequently Asked Questions
           </h2>
+          <p className="mt-2 text-gray-600">
+            Find answers to common questions about our platform.
+          </p>
         </div>
 
         <div className="space-y-4">
           {faqData.map((item, index) => (
-            <div 
+            <motion.div 
               key={index}
-              className={`border border-gray-200 rounded-xl transition-all duration-300 ${
-                activeIndex === index ? 'bg-indigo-50 border-indigo-600' : 'bg-white'
+              layout
+              className={`border rounded-2xl overflow-hidden ${
+                activeIndex === index 
+                  ? "bg-gradient-to-r from-indigo-50 to-white border-indigo-400 shadow-md" 
+                  : "bg-white border-gray-200"
               }`}
             >
               <button
                 onClick={() => toggleAccordion(index)}
-                className="flex items-center justify-between w-full p-5 text-left text-lg font-medium text-gray-900"
+                className="flex justify-between items-center w-full p-5 text-left text-lg font-medium text-gray-900 focus:outline-none"
               >
                 <span>{item.question}</span>
-                <svg
-                  className={`w-6 h-6 transition-transform duration-300 ${
-                    activeIndex === index ? 'rotate-180 text-indigo-600' : 'text-gray-500'
-                  }`}
-                  fill="none" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor"
+                <motion.span
+                  animate={{ rotate: activeIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className={`text-gray-500`}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </motion.span>
               </button>
 
-              <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  activeIndex === index ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
-                }`}
-              >
-                <div className="p-5 border-t border-gray-200 text-gray-600 leading-relaxed">
-                  {item.answer}
-                </div>
-              </div>
-            </div>
+              <AnimatePresence>
+                {activeIndex === index && (
+                  <motion.div
+                    key="content"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="px-5 pb-5 text-gray-700"
+                  >
+                    {item.answer}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           ))}
         </div>
       </div>

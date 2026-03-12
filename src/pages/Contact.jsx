@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const WEB3_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -22,11 +24,9 @@ const Contact = () => {
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: WEB3_KEY, // Web3Forms access key
+          access_key: WEB3_KEY,
           ...formData,
         }),
       });
@@ -38,7 +38,8 @@ const Contact = () => {
       }
 
       alert("Message sent successfully ✅");
-      setFormData({ name: "", email: "", message: "" }); // reset form
+      setFormData({ name: "", email: "", message: "" });
+
     } catch (err) {
       alert(`Submission failed ❌: ${err.message}`);
       console.error(err);
@@ -48,77 +49,135 @@ const Contact = () => {
   };
 
   return (
-    <div className="mt-12 px-4" id="contact">
-      {/* Heading */}
-      <div className="text-center">
-        <h1 className="text-3xl font-bold">
-          Contact <span className="font-light underline underline-offset-4">With Us</span>
-        </h1>
-        <p className="mt-2 text-gray-600">
-          We'd love to hear from you. Contact us today.
-        </p>
-      </div>
+    <section id="contact" className="py-20 bg-gray-50 px-6">
 
-      {/* Form */}
-      <div className="max-w-3xl mx-auto mt-8 bg-white shadow-lg rounded-lg p-6">
-        <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Name */}
-            <div>
-              <label className="block text-sm font-medium mb-1">Name</label>
-              <input
-                onChange={handleChange}
-                value={formData.name}
-                name="name"
-                type="text"
-                placeholder="Enter your name"
-                required
-                className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-              />
+      <div className="max-w-6xl mx-auto">
+
+        {/* Title */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-4xl font-bold text-gray-900">
+            Contact <span className="text-blue-600">Us</span>
+          </h2>
+
+          <p className="text-gray-600 mt-3">
+            Have questions or want to collaborate? Send us a message.
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+
+          {/* Left Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+
+            <h3 className="text-2xl font-semibold text-gray-800">
+              Let's talk about your ideas
+            </h3>
+
+            <p className="text-gray-600">
+              We’re here to help tutors and students connect.
+              Reach out to us anytime and we’ll happily answer your questions.
+            </p>
+
+            <div className="space-y-3 text-gray-700">
+
+              <p>📧 support@example.com</p>
+              <p>📞 +91 9876543210</p>
+              <p>📍 India</p>
+
             </div>
 
-            {/* Email */}
-            <div>
-              <label className="block text-sm font-medium mb-1">Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-              />
-            </div>
-          </div>
+          </motion.div>
 
-          {/* Message */}
-          <div className="mt-6">
-            <label className="block text-sm font-medium mb-1">Message</label>
-            <textarea
-              onChange={handleChange}
-              value={formData.message}
-              name="message"
-              rows="4"
-              placeholder="Write your message here..."
-              required
-              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-            />
-          </div>
+          {/* Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="bg-white shadow-xl rounded-2xl p-8"
+          >
 
-          {/* Button */}
-          <div className="mt-6 text-center">
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 py-2 rounded-md transition duration-300 disabled:opacity-50"
-            >
-              {loading ? "Sending..." : "Send Message"}
-            </button>
-          </div>
-        </form>
+            <form onSubmit={handleSubmit}>
+
+              {/* Name */}
+              <div className="mb-5">
+                <label className="block text-sm font-medium mb-1">
+                  Name
+                </label>
+
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Enter your name"
+                  required
+                  className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                />
+              </div>
+
+              {/* Email */}
+              <div className="mb-5">
+                <label className="block text-sm font-medium mb-1">
+                  Email
+                </label>
+
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter your email"
+                  required
+                  className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                />
+              </div>
+
+              {/* Message */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium mb-1">
+                  Message
+                </label>
+
+                <textarea
+                  rows="4"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Write your message..."
+                  required
+                  className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                />
+              </div>
+
+              {/* Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50"
+              >
+                {loading ? "Sending..." : "Send Message"}
+              </button>
+
+            </form>
+
+          </motion.div>
+
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
