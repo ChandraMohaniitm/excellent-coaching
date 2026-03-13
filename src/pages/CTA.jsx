@@ -48,7 +48,7 @@ const CTA = () => {
           transition={{ delay: 0.4 }}
           className="mt-6 text-gray-500"
         >
-          Connect with tutors and explore new teaching opportunities 🚀
+          Connect with tutors and explore new teaching opportunities
         </motion.p>
 
       </div>

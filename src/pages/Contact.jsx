@@ -39,7 +39,6 @@ const Contact = () => {
 
       alert("Message sent successfully ✅");
       setFormData({ name: "", email: "", message: "" });
-
     } catch (err) {
       alert(`Submission failed ❌: ${err.message}`);
       console.error(err);
@@ -49,11 +48,13 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gray-50 px-6">
-
+    <section
+      id="contact"
+      className="py-20 bg-gray-50 px-4 md:px-6 overflow-hidden"
+    >
       <div className="max-w-6xl mx-auto">
 
-        {/* Title */}
+        {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -64,13 +65,13 @@ const Contact = () => {
           <h2 className="text-4xl font-bold text-gray-900">
             Contact <span className="text-blue-600">Us</span>
           </h2>
-
           <p className="text-gray-600 mt-3">
             Have questions or want to collaborate? Send us a message.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        {/* Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
 
           {/* Left Info */}
           <motion.div
@@ -80,7 +81,6 @@ const Contact = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-
             <h3 className="text-2xl font-semibold text-gray-800">
               Let's talk about your ideas
             </h3>
@@ -91,13 +91,10 @@ const Contact = () => {
             </p>
 
             <div className="space-y-3 text-gray-700">
-
-              <p>📧 support@example.com</p>
-              <p>📞 +91 9876543210</p>
-              <p>📍 India</p>
-
+              <p>📧 vrajeev699@support.com</p>
+              <p>📞 +91 7982424656</p>
+              <p>📍 Delhi, India</p>
             </div>
-
           </motion.div>
 
           {/* Form */}
@@ -106,17 +103,13 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="bg-white shadow-xl rounded-2xl p-8"
+            className="bg-white shadow-xl rounded-2xl p-6 md:p-8"
           >
-
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
 
               {/* Name */}
-              <div className="mb-5">
-                <label className="block text-sm font-medium mb-1">
-                  Name
-                </label>
-
+              <div>
+                <label className="block text-sm font-medium mb-1">Name</label>
                 <input
                   type="text"
                   name="name"
@@ -129,11 +122,8 @@ const Contact = () => {
               </div>
 
               {/* Email */}
-              <div className="mb-5">
-                <label className="block text-sm font-medium mb-1">
-                  Email
-                </label>
-
+              <div>
+                <label className="block text-sm font-medium mb-1">Email</label>
                 <input
                   type="email"
                   name="email"
@@ -146,11 +136,8 @@ const Contact = () => {
               </div>
 
               {/* Message */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium mb-1">
-                  Message
-                </label>
-
+              <div>
+                <label className="block text-sm font-medium mb-1">Message</label>
                 <textarea
                   rows="4"
                   name="message"
@@ -162,7 +149,7 @@ const Contact = () => {
                 />
               </div>
 
-              {/* Button */}
+              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={loading}
@@ -172,9 +159,7 @@ const Contact = () => {
               </button>
 
             </form>
-
           </motion.div>
-
         </div>
       </div>
     </section>

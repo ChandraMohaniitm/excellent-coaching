@@ -24,8 +24,7 @@ const Footer = () => {
         >
           <img src={logo} className="w-14 h-14 mb-4" alt="logo" />
           <p className="text-sm leading-relaxed text-gray-300">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur,
-            iste!
+            Excellent Coaching is dedicated to connecting students with expert tutors for personalized learning. We empower learners to achieve their goals through flexible education.
           </p>
         </motion.div>
 
