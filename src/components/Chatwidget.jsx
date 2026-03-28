@@ -51,7 +51,7 @@ const Chatwidget = ({ onClose }) => {
           </div>
           <div>
             <p className="text-white font-bold text-sm tracking-wide">Excellent Coaching</p>
-            <p className="text-blue-100 text-[11px] font-medium">Always Active</p>
+            <p className="text-blue-100 text-[11px] font-medium">Active</p>
           </div>
         </div>
         <RxCross2 onClick={onClose} className="text-white text-xl cursor-pointer hover:rotate-90 transition-all duration-300" />
@@ -89,7 +89,7 @@ const Chatwidget = ({ onClose }) => {
           <button
             onClick={() => handleOptionClick(
               "Who we are", 
-              "### 👨‍🏫 About Us\n\nWe provide **premium 1-on-1 coaching** for students of all grades. Our mission is to bridge the gap between classroom learning and real-world mastery through expert tutors."
+              "## **About Excellent Coaching** \n\nWe provide **premium 1-on-1 coaching** for students of all grades. Our mission is to bridge the gap between classroom learning and real-world mastery through expert tutors."
             )}
             className="w-full text-left bg-white border border-blue-100 rounded-lg px-3 py-2 text-xs font-medium text-blue-700 hover:bg-blue-600 hover:text-white transition-all shadow-sm"
           >
@@ -99,7 +99,7 @@ const Chatwidget = ({ onClose }) => {
           <button
             onClick={() => handleOptionClick(
               "How it works", 
-              "### ⚙️ The Process\n\n1. **Personal Assessment**: We identify your learning style.\n2. **Tutor Matching**: Get paired with a subject expert.\n3. **Flexible Schedule**: Learn online at your own pace."
+              "The Simple Process\n\n1. **Book a Free Demo**: Experience our teaching style with a no-obligation demo session.\n2. **Continue if Perfect**: If you're satisfied, continue with regular sessions."
             )}
             className="w-full text-left bg-white border border-blue-100 rounded-lg px-3 py-2 text-xs font-medium text-blue-700 hover:bg-blue-600 hover:text-white transition-all shadow-sm"
           >
@@ -109,7 +109,7 @@ const Chatwidget = ({ onClose }) => {
           <button
             onClick={() => handleOptionClick(
               "Book a Demo", 
-              "### 🚀 Get Started\n\nGreat choice! Please drop your contact number or [click here](/contact) to book your **Free 30-minute Demo Session**."
+              "Great choice!\n\nPlease fill out the 'Find Tutors' or 'Contact Us' form to book your **Free Demo**. We’ll get back to you ASAP "
             )}
             className="w-full text-left bg-white border border-blue-100 rounded-lg px-3 py-2 text-xs font-medium text-blue-700 hover:bg-blue-600 hover:text-white transition-all shadow-sm"
           >

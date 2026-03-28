@@ -97,8 +97,7 @@ const Hero = () => {
               transition={{ delay: 1, duration: 0.7 }}
               className="relative z-10 text-white text-base md:text-lg lg:text-xl font-medium leading-relaxed drop-shadow-md"
             >
-              Learn from industry experts and boost your career with flexible
-              online education.
+            Master your future with industry expert tutors. Book your free demo class today and start learning. 
             </motion.p>
           </div>
 

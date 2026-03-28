@@ -10,20 +10,20 @@ const Faq = () => {
 
   const faqData = [
     {
-      question: "How can I reset my password?",
-      answer: "Click 'Forgot Password' on the login page. We'll send a secure link to your registered email to reset it."
+      question: "Why to choose our platform?",
+      answer: "We offfer best quality tutors and best learning experience to students. We taught more than 10000 students and we have 100% satisfaction rate. We have tutors for all subjects and all levels. We have flexible scheduling and affordable pricing."
     },
     {
-      question: "How do I update my billing information?",
-      answer: "Go to Account Settings → Billing. Update your credit card details, billing address, or view past invoices."
+      question: "How do I book a tutor for Demo class?",
+      answer: "To book a tutor for a demo class, simply click on the 'Find Tutor' or 'Contact Us' and fill out the form with your requirements. Our team will get back to you within 24 hours to schedule your demo session."
     },
     {
-      question: "How can I contact customer support?",
-      answer: "Reach us via live chat in the bottom-right corner or email support@example.com. Response typically within 24 hours."
+      question: "Is Demo class free?",
+      answer: "Yes, our demo classes are completely free of charge. You can experience our teaching methodology and interact with our tutors without any commitment."
     },
     {
-      question: "How do I delete my account?",
-      answer: "Request account deletion in the 'Privacy' section of your profile. This action is permanent and all data will be removed."
+      question: "What if I am not satisfied with the demo class?",
+      answer: "We have tons of tutors and we are sure that you will find the best tutor for you. If you are not satisfied with the demo class, please let us know and we will be happy to arrange another demo session with a different tutor."
     }
   ];
 
