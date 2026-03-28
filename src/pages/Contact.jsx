@@ -86,8 +86,7 @@ const Contact = () => {
             </h3>
 
             <p className="text-gray-600">
-              We’re here to help tutors and students connect.
-              Reach out to us anytime and we’ll happily answer your questions.
+            Reach out to us anytime and we’ll happily answer your questions.
             </p>
 
             <div className="space-y-3 text-gray-700">

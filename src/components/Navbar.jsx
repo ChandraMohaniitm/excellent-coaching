@@ -8,7 +8,6 @@ const menuItems = [
   { name: "Home", id: "home" },
   { name: "About", id: "about" },
   { name: "Achievements", id: "achievements" },
-  { name: "Find Tutor", id: "find-tutor" },
   { name: "Contact", id: "contact" },
 ];
 
